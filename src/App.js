@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const App = () => {
+  const [temperature, setTemperature] = useState(10);
+  const [temperatureColor, setTemperatureColor] = useState("cold");
+
+  const increaseTemperature = () => {
+    if (temperature >= 30) return;
+    const newTemperature = temperature + 1;
+
+    if (newTemperature >= 15) {
+      setTemperatureColor("hot");
+    }
+
+    setTemperature(newTemperature);
+  };
+
+  const decreaseTemperature = () => {
+    if (temperature <= 0) return;
+    const newTemperature = temperature - 1;
+
+    if (newTemperature <= 15) {
+      setTemperatureColor("cold");
+    }
+
+    setTemperature(newTemperature);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <div className="temperature-display-container">
+        <div className={`temperature-display ${temperatureColor}`}>
+          {temperature}°C
+        </div>
+      </div>
+
+      <div className="button-container">
+        <button onClick={() => increaseTemperature()}>+</button>
+        <button onClick={() => decreaseTemperature()}>-</button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
